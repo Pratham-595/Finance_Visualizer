@@ -1,0 +1,202 @@
+[
+  {
+    "id": "1",
+    "amount": 3500,
+    "description": "Monthly Salary",
+    "category": "salary",
+    "type": "income",
+    "date": "2024-12-01T09:00:00.000Z",
+    "createdAt": "2024-12-01T09:00:00.000Z",
+    "updatedAt": "2024-12-01T09:00:00.000Z"
+  },
+  {
+    "id": "2",
+    "amount": 75.5,
+    "description": "Grocery Shopping",
+    "category": "food",
+    "type": "expense",
+    "date": "2024-12-01T14:30:00.000Z",
+    "createdAt": "2024-12-01T14:30:00.000Z",
+    "updatedAt": "2024-12-01T14:30:00.000Z"
+  },
+  {
+    "id": "3",
+    "amount": 1200,
+    "description": "Monthly Rent",
+    "category": "housing",
+    "type": "expense",
+    "date": "2024-12-01T10:00:00.000Z",
+    "createdAt": "2024-12-01T10:00:00.000Z",
+    "updatedAt": "2024-12-01T10:00:00.000Z"
+  },
+  {
+    "id": "4",
+    "amount": 45.25,
+    "description": "Gas Station",
+    "category": "transportation",
+    "type": "expense",
+    "date": "2024-12-02T08:15:00.000Z",
+    "createdAt": "2024-12-02T08:15:00.000Z",
+    "updatedAt": "2024-12-02T08:15:00.000Z"
+  },
+  {
+    "id": "5",
+    "amount": 500,
+    "description": "Freelance Project",
+    "category": "freelance",
+    "type": "income",
+    "date": "2024-12-02T16:00:00.000Z",
+    "createdAt": "2024-12-02T16:00:00.000Z",
+    "updatedAt": "2024-12-02T16:00:00.000Z"
+  },
+  {
+    "id": "6",
+    "amount": 89.99,
+    "description": "Electric Bill",
+    "category": "utilities",
+    "type": "expense",
+    "date": "2024-12-03T11:30:00.000Z",
+    "createdAt": "2024-12-03T11:30:00.000Z",
+    "updatedAt": "2024-12-03T11:30:00.000Z"
+  },
+  {
+    "id": "7",
+    "amount": 25.0,
+    "description": "Coffee Shop",
+    "category": "food",
+    "type": "expense",
+    "date": "2024-12-03T07:45:00.000Z",
+    "createdAt": "2024-12-03T07:45:00.000Z",
+    "updatedAt": "2024-12-03T07:45:00.000Z"
+  },
+  {
+    "id": "8",
+    "amount": 120.0,
+    "description": "Grocery Shopping",
+    "category": "food",
+    "type": "expense",
+    "date": "2024-12-04T15:20:00.000Z",
+    "createdAt": "2024-12-04T15:20:00.000Z",
+    "updatedAt": "2024-12-04T15:20:00.000Z"
+  },
+  {
+    "id": "9",
+    "amount": 35.0,
+    "description": "Movie Tickets",
+    "category": "entertainment",
+    "type": "expense",
+    "date": "2024-12-05T19:00:00.000Z",
+    "createdAt": "2024-12-05T19:00:00.000Z",
+    "updatedAt": "2024-12-05T19:00:00.000Z"
+  },
+  {
+    "id": "10",
+    "amount": 250.0,
+    "description": "Investment Dividend",
+    "category": "investment",
+    "type": "income",
+    "date": "2024-12-06T10:00:00.000Z",
+    "createdAt": "2024-12-06T10:00:00.000Z",
+    "updatedAt": "2024-12-06T10:00:00.000Z"
+  },
+  {
+    "id": "11",
+    "amount": 60.0,
+    "description": "Internet Bill",
+    "category": "utilities",
+    "type": "expense",
+    "date": "2024-12-07T12:00:00.000Z",
+    "createdAt": "2024-12-07T12:00:00.000Z",
+    "updatedAt": "2024-12-07T12:00:00.000Z"
+  },
+  {
+    "id": "12",
+    "amount": 145.75,
+    "description": "Clothing Store",
+    "category": "shopping",
+    "type": "expense",
+    "date": "2024-12-08T14:30:00.000Z",
+    "createdAt": "2024-12-08T14:30:00.000Z",
+    "updatedAt": "2024-12-08T14:30:00.000Z"
+  },
+  {
+    "id": "13",
+    "amount": 95.5,
+    "description": "Doctor Visit",
+    "category": "healthcare",
+    "type": "expense",
+    "date": "2024-12-09T09:30:00.000Z",
+    "createdAt": "2024-12-09T09:30:00.000Z",
+    "updatedAt": "2024-12-09T09:30:00.000Z"
+  },
+  {
+    "id": "14",
+    "amount": 3500,
+    "description": "Monthly Salary",
+    "category": "salary",
+    "type": "income",
+    "date": "2024-11-01T09:00:00.000Z",
+    "createdAt": "2024-11-01T09:00:00.000Z",
+    "updatedAt": "2024-11-01T09:00:00.000Z"
+  },
+  {
+    "id": "15",
+    "amount": 1200,
+    "description": "Monthly Rent",
+    "category": "housing",
+    "type": "expense",
+    "date": "2024-11-01T10:00:00.000Z",
+    "createdAt": "2024-11-01T10:00:00.000Z",
+    "updatedAt": "2024-11-01T10:00:00.000Z"
+  },
+  {
+    "id": "16",
+    "amount": 350.0,
+    "description": "Freelance Project",
+    "category": "freelance",
+    "type": "income",
+    "date": "2024-11-15T16:00:00.000Z",
+    "createdAt": "2024-11-15T16:00:00.000Z",
+    "updatedAt": "2024-11-15T16:00:00.000Z"
+  },
+  {
+    "id": "17",
+    "amount": 180.25,
+    "description": "Grocery Shopping",
+    "category": "food",
+    "type": "expense",
+    "date": "2024-11-20T14:30:00.000Z",
+    "createdAt": "2024-11-20T14:30:00.000Z",
+    "updatedAt": "2024-11-20T14:30:00.000Z"
+  },
+  {
+    "id": "18",
+    "amount": 75.0,
+    "description": "Gas Station",
+    "category": "transportation",
+    "type": "expense",
+    "date": "2024-11-25T08:15:00.000Z",
+    "createdAt": "2024-11-25T08:15:00.000Z",
+    "updatedAt": "2024-11-25T08:15:00.000Z"
+  },
+  {
+    "id": "19",
+    "amount": 3500,
+    "description": "Monthly Salary",
+    "category": "salary",
+    "type": "income",
+    "date": "2024-10-01T09:00:00.000Z",
+    "createdAt": "2024-10-01T09:00:00.000Z",
+    "updatedAt": "2024-10-01T09:00:00.000Z"
+  },
+  {
+    "id": "20",
+    "amount": 1200,
+    "description": "Monthly Rent",
+    "category": "housing",
+    "type": "expense",
+    "date": "2024-10-01T10:00:00.000Z",
+    "createdAt": "2024-10-01T10:00:00.000Z",
+    "updatedAt": "2024-10-01T10:00:00.000Z"
+  }
+]
