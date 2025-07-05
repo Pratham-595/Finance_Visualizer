@@ -15,39 +15,43 @@ import { BudgetManagementDialog } from "@/components/budget-management-dialog";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { IconPlus } from "@tabler/icons-react";
+import { IconPlus, IconDatabase, IconLoader2 } from "@tabler/icons-react";
+import { useTransactions, useBudgets } from "@/hooks/useApi";
+import { toast } from "sonner";
 
-import transactionsData from "./transactions.json";
-import {
-  Transaction,
-  TransactionFormData,
-  Budget,
-  BudgetFormData,
-} from "@/lib/types";
+import { Transaction, TransactionFormData, BudgetFormData } from "@/lib/types";
 
 export default function Page() {
-  const [transactions, setTransactions] = React.useState<Transaction[]>(
-    transactionsData as Transaction[]
-  );
-  const [budgets, setBudgets] = React.useState<Budget[]>([]);
+  const {
+    transactions,
+    loading: transactionsLoading,
+    error: transactionsError,
+    addTransaction,
+    updateTransaction,
+    deleteTransaction,
+  } = useTransactions();
+
+  const {
+    budgets,
+    loading: budgetsLoading,
+    error: budgetsError,
+    addBudget,
+    updateBudget,
+    deleteBudget,
+  } = useBudgets();
+
   const [showAddDialog, setShowAddDialog] = React.useState(false);
   const [showEditDialog, setShowEditDialog] = React.useState(false);
   const [editingTransaction, setEditingTransaction] =
     React.useState<Transaction | null>(null);
 
-  const handleAddTransaction = (formData: TransactionFormData) => {
-    const newTransaction: Transaction = {
-      id: (transactions.length + 1).toString(),
-      amount: formData.amount,
-      description: formData.description,
-      category: formData.category!,
-      type: formData.type,
-      date: new Date(formData.date).toISOString(),
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    };
-
-    setTransactions((prev) => [newTransaction, ...prev]);
+  const handleAddTransaction = async (formData: TransactionFormData) => {
+    try {
+      await addTransaction(formData);
+      toast.success("Transaction added successfully!");
+    } catch (error) {
+      toast.error("Failed to add transaction");
+    }
   };
 
   const handleEditTransaction = (transaction: Transaction) => {
@@ -55,77 +59,107 @@ export default function Page() {
     setShowEditDialog(true);
   };
 
-  const handleUpdateTransaction = (
+  const handleUpdateTransaction = async (
     id: string,
     formData: TransactionFormData
   ) => {
-    setTransactions((prev) =>
-      prev.map((transaction) =>
-        transaction.id === id
-          ? {
-              ...transaction,
-              amount: formData.amount,
-              description: formData.description,
-              category: formData.category!,
-              type: formData.type,
-              date: new Date(formData.date).toISOString(),
-              updatedAt: new Date().toISOString(),
-            }
-          : transaction
-      )
+    try {
+      await updateTransaction(id, formData);
+      setEditingTransaction(null);
+      toast.success("Transaction updated successfully!");
+    } catch (error) {
+      toast.error("Failed to update transaction");
+    }
+  };
+
+  const handleDeleteTransaction = async (id: string) => {
+    try {
+      await deleteTransaction(id);
+      toast.success("Transaction deleted successfully!");
+    } catch (error) {
+      toast.error("Failed to delete transaction");
+    }
+  };
+
+  const handleAddBudget = async (formData: BudgetFormData) => {
+    try {
+      await addBudget(formData);
+      toast.success("Budget added successfully!");
+    } catch (error) {
+      toast.error("Failed to add budget");
+    }
+  };
+
+  const handleUpdateBudget = async (id: string, formData: BudgetFormData) => {
+    try {
+      await updateBudget(id, formData);
+      toast.success("Budget updated successfully!");
+    } catch (error) {
+      toast.error("Failed to update budget");
+    }
+  };
+
+  const handleDeleteBudget = async (id: string) => {
+    try {
+      await deleteBudget(id);
+      toast.success("Budget deleted successfully!");
+    } catch (error) {
+      toast.error("Failed to delete budget");
+    }
+  };
+
+  const handleSeedDatabase = async () => {
+    try {
+      const response = await fetch("/api/seed", {
+        method: "POST",
+      });
+
+      if (response.ok) {
+        toast.success("Database seeded successfully!");
+        // The useTransactions hook will automatically refetch
+      } else {
+        toast.error("Failed to seed database");
+      }
+    } catch (error) {
+      toast.error("Failed to seed database");
+    }
+  };
+
+  const isLoading = transactionsLoading || budgetsLoading;
+
+  if (isLoading) {
+    return (
+        <SidebarInset>
+          <SiteHeader />
+          <div className="flex flex-1 flex-col items-center justify-center">
+            <IconLoader2 className="h-8 w-8 animate-spin" />
+            <p className="mt-2 text-muted-foreground">
+              Loading your financial data...
+            </p>
+          </div>
+        </SidebarInset>
     );
-    setEditingTransaction(null);
-  };
+  }
 
-  const handleDeleteTransaction = (id: string) => {
-    setTransactions((prev) =>
-      prev.filter((transaction) => transaction.id !== id)
+  if (transactionsError || budgetsError) {
+    return (
+        <div>
+          <SiteHeader />
+          <div className="flex flex-1 flex-col items-center justify-center space-y-4">
+            <p className="text-destructive">
+              Error: {transactionsError || budgetsError}
+            </p>
+            <Button onClick={handleSeedDatabase} variant="outline">
+              <IconDatabase className="h-4 w-4 mr-2" />
+              Seed Database
+            </Button>
+          </div>
+        </div>
     );
-  };
-
-  const handleAddBudget = (formData: BudgetFormData) => {
-    const newBudget: Budget = {
-      id: (budgets.length + 1).toString(),
-      category: formData.category,
-      amount: formData.amount,
-      period: formData.period,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    };
-
-    setBudgets((prev) => [...prev, newBudget]);
-  };
-
-  const handleUpdateBudget = (id: string, formData: BudgetFormData) => {
-    setBudgets((prev) =>
-      prev.map((budget) =>
-        budget.id === id
-          ? {
-              ...budget,
-              category: formData.category,
-              amount: formData.amount,
-              period: formData.period,
-              updatedAt: new Date().toISOString(),
-            }
-          : budget
-      )
-    );
-  };
-
-  const handleDeleteBudget = (id: string) => {
-    setBudgets((prev) => prev.filter((budget) => budget.id !== id));
-  };
+  }
 
   return (
-    <SidebarProvider
-      style={
-        {
-          "--sidebar-width": "calc(var(--spacing) * 72)",
-          "--header-height": "calc(var(--spacing) * 12)",
-        } as React.CSSProperties
-      }
-    >
-      <AppSidebar variant="inset" />
+    <div>
       <SidebarInset>
         <SiteHeader />
         <div className="flex flex-1 flex-col">
@@ -134,6 +168,14 @@ export default function Page() {
               <div className="flex items-center justify-between px-4 lg:px-6">
                 <h1 className="text-3xl font-bold">Dashboard</h1>
                 <div className="flex gap-2">
+                  <Button
+                    onClick={handleSeedDatabase}
+                    variant="outline"
+                    size="sm"
+                  >
+                    <IconDatabase className="h-4 w-4 mr-2" />
+                    Seed DB
+                  </Button>
                   <BudgetManagementDialog
                     budgets={budgets}
                     onAddBudget={handleAddBudget}
@@ -217,6 +259,6 @@ export default function Page() {
         onOpenChange={setShowEditDialog}
         onSubmit={handleUpdateTransaction}
       />
-    </SidebarProvider>
+    </div>
   );
 }
