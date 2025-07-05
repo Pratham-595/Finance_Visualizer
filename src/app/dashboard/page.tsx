@@ -155,18 +155,19 @@ export default function Page() {
   }
 
   return (
-    <div>
+    <SidebarProvider>
       <SidebarInset>
         <div className="flex flex-1 flex-col">
           <div className="@container/main flex flex-1 flex-col gap-2">
             <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-              <div className="flex items-center justify-between px-4 lg:px-6">
-                <h1 className="text-3xl font-bold">Dashboard</h1>
-                <div className="flex gap-2">
+              <div className="flex flex-col gap-4 px-4 sm:flex-row sm:items-center sm:justify-between lg:px-6">
+                <h1 className="text-2xl font-bold sm:text-3xl">Dashboard</h1>
+                <div className="flex flex-col gap-2 sm:flex-row">
                   <Button
                     onClick={handleSeedDatabase}
                     variant="outline"
                     size="sm"
+                    className="w-full sm:w-auto"
                   >
                     <IconDatabase className="h-4 w-4 mr-2" />
                     Seed DB
@@ -177,7 +178,7 @@ export default function Page() {
                     onUpdateBudget={handleUpdateBudget}
                     onDeleteBudget={handleDeleteBudget}
                   />
-                  <Button onClick={() => setShowAddDialog(true)}>
+                  <Button onClick={() => setShowAddDialog(true)} className="w-full sm:w-auto">
                     <IconPlus className="h-4 w-4 mr-2" />
                     Add Transaction
                   </Button>
@@ -187,15 +188,15 @@ export default function Page() {
               <SectionCards transactions={transactions} />
 
               <Tabs defaultValue="overview" className="px-4 lg:px-6">
-                <TabsList className="grid w-full grid-cols-4">
-                  <TabsTrigger value="overview">Overview</TabsTrigger>
-                  <TabsTrigger value="categories">Categories</TabsTrigger>
-                  <TabsTrigger value="budgets">Budgets</TabsTrigger>
-                  <TabsTrigger value="transactions">Transactions</TabsTrigger>
+                <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4">
+                  <TabsTrigger value="overview" className="text-xs sm:text-sm">Overview</TabsTrigger>
+                  <TabsTrigger value="categories" className="text-xs sm:text-sm">Categories</TabsTrigger>
+                  <TabsTrigger value="budgets" className="text-xs sm:text-sm">Budgets</TabsTrigger>
+                  <TabsTrigger value="transactions" className="text-xs sm:text-sm">Transactions</TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="overview" className="space-y-4">
-                  <div className="grid gap-4 md:grid-cols-2">
+                  <div className="grid gap-4 lg:grid-cols-2">
                     <MonthlyExpensesChart transactions={transactions} />
                     <CategoryPieChart
                       transactions={transactions}
@@ -209,7 +210,7 @@ export default function Page() {
                 </TabsContent>
 
                 <TabsContent value="categories" className="space-y-4">
-                  <div className="grid gap-4 md:grid-cols-2">
+                  <div className="grid gap-4 lg:grid-cols-2">
                     <CategoryPieChart
                       transactions={transactions}
                       type="income"
@@ -254,6 +255,6 @@ export default function Page() {
         onOpenChange={setShowEditDialog}
         onSubmit={handleUpdateTransaction}
       />
-    </div>
+    </SidebarProvider>
   );
 }
