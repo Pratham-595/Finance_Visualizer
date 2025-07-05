@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { SectionCards } from "@/components/section-cards";
-import { SiteHeader } from "@/components/site-header";
 import { TransactionsTable } from "@/components/transactions-table";
 import { MonthlyExpensesChart } from "@/components/monthly-expenses-chart";
 import { CategoryPieChart } from "@/components/category-pie-chart";
@@ -129,7 +128,6 @@ export default function Page() {
   if (isLoading) {
     return (
         <SidebarInset>
-          <SiteHeader />
           <div className="flex flex-1 flex-col items-center justify-center">
             <IconLoader2 className="h-8 w-8 animate-spin" />
             <p className="mt-2 text-muted-foreground">
@@ -143,7 +141,6 @@ export default function Page() {
   if (transactionsError || budgetsError) {
     return (
         <div>
-          <SiteHeader />
           <div className="flex flex-1 flex-col items-center justify-center space-y-4">
             <p className="text-destructive">
               Error: {transactionsError || budgetsError}
@@ -160,7 +157,6 @@ export default function Page() {
   return (
     <div>
       <SidebarInset>
-        <SiteHeader />
         <div className="flex flex-1 flex-col">
           <div className="@container/main flex flex-1 flex-col gap-2">
             <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
