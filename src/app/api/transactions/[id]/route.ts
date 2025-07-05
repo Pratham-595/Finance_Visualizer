@@ -5,32 +5,30 @@ import { transactionFormSchema } from "@/lib/types";
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectDB();
-
+    
+    const { id } = await params;
     const body = await request.json();
     const validatedData = transactionFormSchema.parse(body);
 
     const updatedTransaction = await TransactionModel.findByIdAndUpdate(
-      params.id,
+      id,
       {
         amount: validatedData.amount,
         description: validatedData.description,
         category: validatedData.category,
         type: validatedData.type,
-        date: new Date(validatedData.date),
+        date: validatedData.date,
         updatedAt: new Date(),
       },
       { new: true }
     );
 
     if (!updatedTransaction) {
-      return NextResponse.json(
-        { error: "Transaction not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Transaction not found" }, { status: 404 });
     }
 
     return NextResponse.json({
@@ -56,20 +54,16 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectDB();
-
-    const deletedTransaction = await TransactionModel.findByIdAndDelete(
-      params.id
-    );
+    
+    const { id } = await params;
+    const deletedTransaction = await TransactionModel.findByIdAndDelete(id);
 
     if (!deletedTransaction) {
-      return NextResponse.json(
-        { error: "Transaction not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Transaction not found" }, { status: 404 });
     }
 
     return NextResponse.json({

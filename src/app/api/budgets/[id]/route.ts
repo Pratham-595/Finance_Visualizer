@@ -5,16 +5,17 @@ import { budgetFormSchema } from "@/lib/types";
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectDB();
-
+    
+    const { id } = await params;
     const body = await request.json();
     const validatedData = budgetFormSchema.parse(body);
 
     const updatedBudget = await BudgetModel.findByIdAndUpdate(
-      params.id,
+      id,
       {
         category: validatedData.category,
         amount: validatedData.amount,
@@ -51,12 +52,13 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectDB();
-
-    const deletedBudget = await BudgetModel.findByIdAndDelete(params.id);
+    
+    const { id } = await params;
+    const deletedBudget = await BudgetModel.findByIdAndDelete(id);
 
     if (!deletedBudget) {
       return NextResponse.json({ error: "Budget not found" }, { status: 404 });
