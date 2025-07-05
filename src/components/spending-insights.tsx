@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { format, subDays, startOfMonth, endOfMonth } from "date-fns";
+import { format, endOfMonth } from "date-fns";
 import {
   IconTrendingUp,
   IconTrendingDown,
@@ -215,7 +215,7 @@ export function SpendingInsights({
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
-            {insights.topCategories.map((category, index) => (
+            {insights.topCategories.map((category) => (
               <div
                 key={category.category}
                 className="flex items-center justify-between"

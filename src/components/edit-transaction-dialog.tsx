@@ -108,7 +108,7 @@ export function EditTransactionDialog({
         <DialogHeader>
           <DialogTitle>Edit Transaction</DialogTitle>
           <DialogDescription>
-            Make changes to your transaction. Click save when you're done.
+            Make changes to your transaction. Click save when you&apos;re done.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
